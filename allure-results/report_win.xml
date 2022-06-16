@@ -1,0 +1,3959 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <testsuite id="0" name="Feature: Windows full e2e backup restore feature: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature" package="testsuite/Feature: Windows full e2e backup restore feature: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature" tests="6" errors="0" failures="2" hostname="localhost" timestamp="2022-06-15T10:30:27.9778808Z" time="855.1418388">
+    <testcase name="Scenario: Backup simple file with file backup command: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:27:9" time="177.2631439">
+      <system-out><![CDATA[  Scenario Outline: Backup simple file with file backup command
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I create file with 10 MIB size and random fill strategy
+   ✔  And I backup created file
+   ✔  And I query recovery points
+   ✔  Then I check progress report for base file back up
+   ✔  When I restore backed up file
+   ✔  Then I compare backed up and restored files
+   ✔  When I update created file with following properties:
+       | update_action | update_length | update_offset |
+       | insert        | 5 MIB         | 3 MIB         |
+   ✔  And I backup created file
+   ✔  And I query recovery points
+   ✔  Then I check progress report for incremental file back up
+   ✔  When I restore backed up file
+   ✔  Then I compare backed up and restored files
+]]></system-out>
+    </testcase>
+    <testcase name="Scenario: Backup filesystem: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:92:9" time="232.0668023">
+      <system-out><![CDATA[  Scenario Outline: Backup filesystem
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 100 MIB between files, default tree depth and without sparse files
+   ✔  When I backup created filesystem
+   ✔  And I query recovery points
+   ✔  Then I check progress report for filesystem back up
+   ✔  When I restore backed up filesystem with no filter
+   ✔  Then I compare backed up and restored filesystem
+   ✔  And I revert renamed filesystem backup directory
+   ✔  When I update created file system tree
+   ✔  And I backup created filesystem
+   ✔  And I query recovery points
+   ✔  Then I check progress report for filesystem back up
+   ✔  When I restore backed up filesystem with no filter
+   ✔  Then I compare backed up and restored filesystem
+   ✔  And I revert renamed filesystem backup directory
+   ✔  When I create file system tree with splitting 50 MIB between files, default tree depth and without sparse files
+   ✔  And I backup created filesystem
+   ✔  And I query recovery points
+   ✔  Then I check progress report for filesystem back up
+   ✔  When I restore backed up filesystem with no filter
+   ✔  Then I compare backed up and restored filesystem
+]]></system-out>
+    </testcase>
+    <testcase name="Scenario: Backup mounted partition: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:149:9" time="203.0014925">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: PathNotExist { path: &quot;E:\\test-b\\2iz4za31UQhVJBqG0pxxLw7OxJJt3El0ni3q2izzCqI6Qn1KZZAlpPoI8cvNt2Ky3HM9Qbt8iQfs2wmzcVJfZhtjQgUnONUIWBopCAMSrJHJSIAfbGkyQMEJSP68DfWvDVZXzZTkTVyB9AJd0w75aM1fT.ps1&quot; }"><![CDATA[  Scenario Outline: Backup mounted partition
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 100 MIB between files, default tree depth and without sparse files
+   ✔  When I backup created block device
+   ✔  And I query recovery points
+   ✔  Then I check progress report for block back up
+   ✔  When I create default ntfs filesystem for restore with 1 GIB size
+   ✔  And I restore backed up block device
+   ✔  Then I compare backed up and restored block devices file system trees
+   ✔  When I update created file system tree
+   ✔  And I backup created block device
+   ✔  And I query recovery points
+   ✔  Then I check progress report for block back up
+   ✔  When I restore backed up block device
+   ✘  Then I compare backed up and restored block devices file system trees
+      Step failed: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:139:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: PathNotExist { path: "E:\\test-b\\2iz4za31UQhVJBqG0pxxLw7OxJJt3El0ni3q2izzCqI6Qn1KZZAlpPoI8cvNt2Ky3HM9Qbt8iQfs2wmzcVJfZhtjQgUnONUIWBopCAMSrJHJSIAfbGkyQMEJSP68DfWvDVZXzZTkTVyB9AJd0w75aM1fT.ps1" }
+      E2EWorld {
+          work_dir: "C:\\Users\\Administrator\\AppData\\Local\\Temp\\.tmpx3hGIK",
+          restore_dir: "C:\\Users\\Administrator\\AppData\\Local\\Temp\\.tmp8QFQZS",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          filesystem_backup_dir: Some(
+              "D:\\test-b",
+          ),
+          filesystem_backup_dir_rn: None,
+          stop_driver_tracking_changes_mounts: [
+              "D:\\",
+              "D:\\",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14024704,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      12649280,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      106954752,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      13893632,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      952893440,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:39:04.302Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:39:04.302Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kf3zke0r8paeeht8qbh5vx",
+                      ),
+                      "job_id": String(
+                          "j-01g5kf3s1c0jb8bg264en0w354",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      121634816,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      105145165,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12124160,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      109510656,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      952107008,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:37:42.823Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:37:42.823Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kf1g17r1dqcm1h1h04yb47",
+                      ),
+                      "job_id": String(
+                          "j-01g5kf19dze457q9ysqyvxqqky",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      198927,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T10:15:30.315Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T10:15:30.315Z",
+                      ),
+                      "id": String(
+                          "rp-01g53zcgrba9nd5c62xafbqw7v",
+                      ),
+                      "job_id": String(
+                          "j-01g53za3z37ckpvgp1wndg09e3",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      178274,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:07:12.673Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:07:12.673Z",
+                      ),
+                      "id": String(
+                          "rp-01g53r1kh1c6ycjdpb52mdskbz",
+                      ),
+                      "job_id": String(
+                          "j-01g53r1crx7s7f58q0kwbx1tp0",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158530,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13762560,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:05:46.591Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:05:46.591Z",
+                      ),
+                      "id": String(
+                          "rp-01g53qyzezppa9mvby2z38wwy5",
+                      ),
+                      "job_id": String(
+                          "j-01g53qys3m19kyg7psk0dhjvky",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158341,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13762560,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:04:26.071Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:04:26.071Z",
+                      ),
+                      "id": String(
+                          "rp-01g53qwgtqb2d3yd7a942rgkse",
+                      ),
+                      "job_id": String(
+                          "j-01g53qw79cj82zg3f9zyw1thpq",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      178474,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:03:02.869Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:03:02.869Z",
+                      ),
+                      "id": String(
+                          "rp-01g53qszjnktrx1jbqxa6txezx",
+                      ),
+                      "job_id": String(
+                          "j-01g53qq49ae87zdf3y75nhrfhp",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      225121,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13500416,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1048576,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:13:33.420Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:13:33.420Z",
+                      ),
+                      "id": String(
+                          "rp-01g521fdbcn16071pj4651ntm1",
+                      ),
+                      "job_id": String(
+                          "j-01g521f73f17vxx7e69bv2tk24",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158593,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:10:55.796Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:10:55.796Z",
+                      ),
+                      "id": String(
+                          "rp-01g521akdmnkmgxfxmsqkzcnca",
+                      ),
+                      "job_id": String(
+                          "j-01g521abnett4zc3qbgyz14d4k",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      198516,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:08:47.158Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:08:47.158Z",
+                      ),
+                      "id": String(
+                          "rp-01g5216nsp574dhgakdp0p9n2s",
+                      ),
+                      "job_id": String(
+                          "j-01g5216cwayaxdd32awg99gkrp",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      63569920,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      48848921,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12320768,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      51249152,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1010171904,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:05:15.596Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:05:15.596Z",
+                      ),
+                      "id": String(
+                          "rp-01g521076c315r74mvfhdv6xht",
+                      ),
+                      "job_id": String(
+                          "j-01g52100pw49yq4prgbykyw27n",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      66715648,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      49982658,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12124160,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54591488,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1007026176,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:02:39.331Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:02:39.331Z",
+                      ),
+                      "id": String(
+                          "rp-01g520vek36srf3cdejz5mzh8q",
+                      ),
+                      "job_id": String(
+                          "j-01g520v8d20ry98s70jzehqc3q",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      66519040,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52530198,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12517376,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54001664,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1007222784,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:01:06.949Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:01:06.949Z",
+                      ),
+                      "id": String(
+                          "rp-01g520rmc5msvqhq2hc234csr5",
+                      ),
+                      "job_id": String(
+                          "j-01g520ph6afk06xk47p4fmebby",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      165955,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      917504,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T15:55:36.288Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T15:55:36.288Z",
+                      ),
+                      "id": String(
+                          "rp-01g520ehf0dyd05d5g3hd38ac5",
+                      ),
+                      "job_id": String(
+                          "j-01g520e6pb8ngey9r28ryv6qcc",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      197656,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T15:17:07.728Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T15:17:07.728Z",
+                      ),
+                      "id": String(
+                          "rp-01g51y830g52s4fervrejefj81",
+                      ),
+                      "job_id": String(
+                          "j-01g51y5hssny7y9qkhx3zfwnzq",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      185014,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      917504,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T15:07:00.822Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T15:07:00.822Z",
+                      ),
+                      "id": String(
+                          "rp-01g51xnjap5g8sffwea2ehvrhw",
+                      ),
+                      "job_id": String(
+                          "j-01g51xkc91prnp9rbcdxdh85ys",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      198235,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T14:54:38.835Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T14:54:38.835Z",
+                      ),
+                      "id": String(
+                          "rp-01g51wyxqkm1ry9pngtde766w8",
+                      ),
+                      "job_id": String(
+                          "j-01g51wwgxyy4bytczxb85q69v8",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      197470,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T13:25:53.700Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T13:25:53.700Z",
+                      ),
+                      "id": String(
+                          "rp-01g51qwdd4cy3ry93v88pwcaz7",
+                      ),
+                      "job_id": String(
+                          "j-01g51qt1zw0cs0554rnee462qn",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158500,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:53:58.396Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:53:58.396Z",
+                      ),
+                      "id": String(
+                          "rp-01g51p1yzw8y81y44f0dhj56z0",
+                      ),
+                      "job_id": String(
+                          "j-01g51p1ntj03fkadr9g94c8d5z",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      54525952,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      40094541,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12451840,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      42074112,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1019215872,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:49:40.572Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:49:40.572Z",
+                      ),
+                      "id": String(
+                          "rp-01g51nt36w3kpsknszx7ckfvja",
+                      ),
+                      "job_id": String(
+                          "j-01g51nskwmfxvd152yewwmmnyw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      204417,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13500416,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1114112,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:47:04.931Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:47:04.931Z",
+                      ),
+                      "id": String(
+                          "rp-01g51nnb73yqmnkgfsfxw8b0zy",
+                      ),
+                      "job_id": String(
+                          "j-01g51nn0ykm5vzxyj6yqzssr81",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      34734080,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      21078930,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12845056,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      21889024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1039007744,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:38:41.137Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:38:41.137Z",
+                      ),
+                      "id": String(
+                          "rp-01g51n5z7hv1n52b9cmrynhpqn",
+                      ),
+                      "job_id": String(
+                          "j-01g51n5j31atstc2cw6kzsadra",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      695124,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12976128,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1572864,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:30:06.809Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:30:06.809Z",
+                      ),
+                      "id": String(
+                          "rp-01g51mp8ysfgk3hxe71ej1a0nm",
+                      ),
+                      "job_id": String(
+                          "j-01g51mp1gz5aeyhc155nnsc9gb",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      65994752,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      51039567,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12582912,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      53411840,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1007747072,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:25:30.164Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:25:30.164Z",
+                      ),
+                      "id": String(
+                          "rp-01g51mdtsm3vsbcgftwfbd0h1f",
+                      ),
+                      "job_id": String(
+                          "j-01g51mdgswexx3r51mxn7h0xdw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      784444,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12713984,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1900544,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:19:36.300Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:19:36.300Z",
+                      ),
+                      "id": String(
+                          "rp-01g51m317c2x5hs9b86b1x2115",
+                      ),
+                      "job_id": String(
+                          "j-01g51m18z0743zjrhtev8mwe5d",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              152041050,
+                          ),
+                          "secs": Number(
+                              7,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          106954752,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "D:\\",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g51km8d4a2bzbjh5tszsqkha:26",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          13893632,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5kf3zke0r8paeeht8qbh5vx",
+                      ),
+                      "skipped_bytes": Number(
+                          952893440,
+                      ),
+                      "total_bytes": Number(
+                          1073741824,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: None,
+          elastio_cli: "C:\\Users\\Administrator\\elastio_e2e\\elastio\\target\\debug\\elastio.exe",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: None,
+      }
+]]></failure>
+    </testcase>
+    <testcase name="Scenario: Mount backed up block device: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:165:9" time="98.6331213">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: &quot;C:\\\\Users\\\\Administrator\\\\elastio_e2e\\\\elastio\\\\target\\\\debug\\\\elastio.exe mount rp --rp rp-01g5kf7w0n55z8jd86apsvcg40 D:\\\\;E:\\\\test --output-format json&quot;, exit_status: &quot;Exited with status code: 70&quot;, stderr: &quot;&quot;, stdout: &quot;{\&quot;error\&quot;:[\&quot;IO error\&quot;,\&quot;command [\\\&quot;sc.exe\\\&quot;, \\\&quot;start\\\&quot;, \\\&quot;elastio\\\&quot;] exited with code 1060\&quot;]}&quot; } }"><![CDATA[  Scenario Outline: Mount backed up block device
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 50 MIB between files, 2 tree depth and with sparse files
+   ✔  And I backup created block device
+   ✔  And I query recovery points
+   ✔  And I create default ntfs filesystem for restore with 1 GIB size
+   ✘  And I mount backed up block device
+      Step failed: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:159:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: "C:\\\\Users\\\\Administrator\\\\elastio_e2e\\\\elastio\\\\target\\\\debug\\\\elastio.exe mount rp --rp rp-01g5kf7w0n55z8jd86apsvcg40 D:\\\\;E:\\\\test --output-format json", exit_status: "Exited with status code: 70", stderr: "", stdout: "{\"error\":[\"IO error\",\"command [\\\"sc.exe\\\", \\\"start\\\", \\\"elastio\\\"] exited with code 1060\"]}" } }
+      E2EWorld {
+          work_dir: "C:\\Users\\Administrator\\AppData\\Local\\Temp\\.tmpZok68M",
+          restore_dir: "C:\\Users\\Administrator\\AppData\\Local\\Temp\\.tmpZwFm4i",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          filesystem_backup_dir: Some(
+              "D:\\test-b",
+          ),
+          filesystem_backup_dir_rn: None,
+          stop_driver_tracking_changes_mounts: [
+              "D:\\",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      66846720,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52615606,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12451840,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54394880,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1006895104,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:41:11.701Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:41:11.701Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kf7w0n55z8jd86apsvcg40",
+                      ),
+                      "job_id": String(
+                          "j-01g5kf7nj917q1rjhb7f71cbha",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14024704,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      12649280,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      106954752,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      13893632,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      952893440,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:39:04.302Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:39:04.302Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kf3zke0r8paeeht8qbh5vx",
+                      ),
+                      "job_id": String(
+                          "j-01g5kf3s1c0jb8bg264en0w354",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      121634816,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      105145165,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12124160,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      109510656,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      952107008,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:37:42.823Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:37:42.823Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kf1g17r1dqcm1h1h04yb47",
+                      ),
+                      "job_id": String(
+                          "j-01g5kf19dze457q9ysqyvxqqky",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      198927,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T10:15:30.315Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T10:15:30.315Z",
+                      ),
+                      "id": String(
+                          "rp-01g53zcgrba9nd5c62xafbqw7v",
+                      ),
+                      "job_id": String(
+                          "j-01g53za3z37ckpvgp1wndg09e3",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      178274,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:07:12.673Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:07:12.673Z",
+                      ),
+                      "id": String(
+                          "rp-01g53r1kh1c6ycjdpb52mdskbz",
+                      ),
+                      "job_id": String(
+                          "j-01g53r1crx7s7f58q0kwbx1tp0",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158530,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13762560,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:05:46.591Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:05:46.591Z",
+                      ),
+                      "id": String(
+                          "rp-01g53qyzezppa9mvby2z38wwy5",
+                      ),
+                      "job_id": String(
+                          "j-01g53qys3m19kyg7psk0dhjvky",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158341,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13762560,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:04:26.071Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:04:26.071Z",
+                      ),
+                      "id": String(
+                          "rp-01g53qwgtqb2d3yd7a942rgkse",
+                      ),
+                      "job_id": String(
+                          "j-01g53qw79cj82zg3f9zyw1thpq",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      178474,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-09T08:03:02.869Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-09T08:03:02.869Z",
+                      ),
+                      "id": String(
+                          "rp-01g53qszjnktrx1jbqxa6txezx",
+                      ),
+                      "job_id": String(
+                          "j-01g53qq49ae87zdf3y75nhrfhp",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      225121,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13500416,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1048576,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:13:33.420Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:13:33.420Z",
+                      ),
+                      "id": String(
+                          "rp-01g521fdbcn16071pj4651ntm1",
+                      ),
+                      "job_id": String(
+                          "j-01g521f73f17vxx7e69bv2tk24",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158593,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:10:55.796Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:10:55.796Z",
+                      ),
+                      "id": String(
+                          "rp-01g521akdmnkmgxfxmsqkzcnca",
+                      ),
+                      "job_id": String(
+                          "j-01g521abnett4zc3qbgyz14d4k",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      198516,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:08:47.158Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:08:47.158Z",
+                      ),
+                      "id": String(
+                          "rp-01g5216nsp574dhgakdp0p9n2s",
+                      ),
+                      "job_id": String(
+                          "j-01g5216cwayaxdd32awg99gkrp",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      63569920,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      48848921,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12320768,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      51249152,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1010171904,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:05:15.596Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:05:15.596Z",
+                      ),
+                      "id": String(
+                          "rp-01g521076c315r74mvfhdv6xht",
+                      ),
+                      "job_id": String(
+                          "j-01g52100pw49yq4prgbykyw27n",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      66715648,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      49982658,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12124160,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54591488,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1007026176,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:02:39.331Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:02:39.331Z",
+                      ),
+                      "id": String(
+                          "rp-01g520vek36srf3cdejz5mzh8q",
+                      ),
+                      "job_id": String(
+                          "j-01g520v8d20ry98s70jzehqc3q",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      66519040,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52530198,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12517376,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54001664,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1007222784,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T16:01:06.949Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T16:01:06.949Z",
+                      ),
+                      "id": String(
+                          "rp-01g520rmc5msvqhq2hc234csr5",
+                      ),
+                      "job_id": String(
+                          "j-01g520ph6afk06xk47p4fmebby",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      165955,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      917504,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T15:55:36.288Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T15:55:36.288Z",
+                      ),
+                      "id": String(
+                          "rp-01g520ehf0dyd05d5g3hd38ac5",
+                      ),
+                      "job_id": String(
+                          "j-01g520e6pb8ngey9r28ryv6qcc",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      197656,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T15:17:07.728Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T15:17:07.728Z",
+                      ),
+                      "id": String(
+                          "rp-01g51y830g52s4fervrejefj81",
+                      ),
+                      "job_id": String(
+                          "j-01g51y5hssny7y9qkhx3zfwnzq",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      185014,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      917504,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T15:07:00.822Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T15:07:00.822Z",
+                      ),
+                      "id": String(
+                          "rp-01g51xnjap5g8sffwea2ehvrhw",
+                      ),
+                      "job_id": String(
+                          "j-01g51xkc91prnp9rbcdxdh85ys",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      198235,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T14:54:38.835Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T14:54:38.835Z",
+                      ),
+                      "id": String(
+                          "rp-01g51wyxqkm1ry9pngtde766w8",
+                      ),
+                      "job_id": String(
+                          "j-01g51wwgxyy4bytczxb85q69v8",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      197470,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13631488,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      983040,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T13:25:53.700Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T13:25:53.700Z",
+                      ),
+                      "id": String(
+                          "rp-01g51qwdd4cy3ry93v88pwcaz7",
+                      ),
+                      "job_id": String(
+                          "j-01g51qt1zw0cs0554rnee462qn",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      158500,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13697024,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      851968,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:53:58.396Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:53:58.396Z",
+                      ),
+                      "id": String(
+                          "rp-01g51p1yzw8y81y44f0dhj56z0",
+                      ),
+                      "job_id": String(
+                          "j-01g51p1ntj03fkadr9g94c8d5z",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      54525952,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      40094541,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12451840,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      42074112,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1019215872,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:49:40.572Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:49:40.572Z",
+                      ),
+                      "id": String(
+                          "rp-01g51nt36w3kpsknszx7ckfvja",
+                      ),
+                      "job_id": String(
+                          "j-01g51nskwmfxvd152yewwmmnyw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14614528,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      204417,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      13500416,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1114112,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059127296,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:47:04.931Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:47:04.931Z",
+                      ),
+                      "id": String(
+                          "rp-01g51nnb73yqmnkgfsfxw8b0zy",
+                      ),
+                      "job_id": String(
+                          "j-01g51nn0ykm5vzxyj6yqzssr81",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      34734080,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      21078930,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12845056,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      21889024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1039007744,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:38:41.137Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:38:41.137Z",
+                      ),
+                      "id": String(
+                          "rp-01g51n5z7hv1n52b9cmrynhpqn",
+                      ),
+                      "job_id": String(
+                          "j-01g51n5j31atstc2cw6kzsadra",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      14548992,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      695124,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12976128,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      1572864,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1059192832,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:30:06.809Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:30:06.809Z",
+                      ),
+                      "id": String(
+                          "rp-01g51mp8ysfgk3hxe71ej1a0nm",
+                      ),
+                      "job_id": String(
+                          "j-01g51mp1gz5aeyhc155nnsc9gb",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:windows2019-amd64-build:D\\:\\\\",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      65994752,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      51039567,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      12582912,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      53411840,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      1007747072,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1073741824,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-08T12:25:30.164Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-08T12:25:30.164Z",
+                      ),
+                      "id": String(
+                          "rp-01g51mdtsm3vsbcgftwfbd0h1f",
+                      ),
+                      "job_id": String(
+                          "j-01g51mdgswexx3r51mxn7h0xdw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  4,
+                              ),
+                              "hostname": String(
+                                  "windows2019-amd64-build",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Windows",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:windows2019-amd64-build",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              478559950,
+                          ),
+                          "secs": Number(
+                              8,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          12451840,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "D:\\",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g51km8d4a2bzbjh5tszsqkha:27",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          54394880,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5kf7w0n55z8jd86apsvcg40",
+                      ),
+                      "skipped_bytes": Number(
+                          1006895104,
+                      ),
+                      "total_bytes": Number(
+                          1073741824,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: None,
+          elastio_cli: "C:\\Users\\Administrator\\elastio_e2e\\elastio\\target\\debug\\elastio.exe",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: None,
+      }
+]]></failure>
+    </testcase>
+    <testcase name="Scenario: Backup stream with stream backup command: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:181:5" time="49.1108975">
+      <system-out><![CDATA[  Scenario: Backup stream with stream backup command
+   ✔  Given I backup stream with stream backup command
+   ✔  And I query recovery points
+   ✔  Then I check progress report for base stream back up with stream subcommmand
+   ✔  When I restore backed up stream with stream restore command
+   ✔  Then I compare backed up and restored stream
+]]></system-out>
+    </testcase>
+    <testcase name="Scenario: Backup simple file with stream backup command: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\backup-restore.feature:209:9" time="95.0663813">
+      <system-out><![CDATA[  Scenario Outline: Backup simple file with stream backup command
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I create file with 10 MIB size and random fill strategy
+   ✔  And I backup created file with stream backup command
+   ✔  And I query recovery points
+   ✔  Then I check progress report for base file back up with stream subcommmand
+   ✔  When I restore backed up file with stream restore command
+   ✔  Then I compare backed up and restored files
+   ✔  When I update created file with following properties:
+       | update_action | update_length | update_offset |
+       | insert        | 5 MIB         | 3 MIB         |
+   ✔  And I backup created file with stream backup command
+   ✔  And I query recovery points
+   ✔  Then I check progress report for incremental file back up with stream subcommmand
+   ✔  When I restore backed up file with stream restore command
+   ✔  Then I compare backed up and restored files
+]]></system-out>
+    </testcase>
+  </testsuite>
+  <testsuite id="1" name="Feature: Windows full e2e iscan feature: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\iscan.feature" package="testsuite/Feature: Windows full e2e iscan feature: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\iscan.feature" tests="2" errors="0" failures="0" hostname="localhost" timestamp="2022-06-15T10:44:43.1232369Z" time="692.533046">
+    <testcase name="Scenario: Background iscan subcommands for recovery point, not infected entities: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\iscan.feature:8:5" time="393.6735646">
+      <system-out><![CDATA[  Scenario: Background iscan subcommands for recovery point, not infected entities
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 20 MIB between files, 1 tree depth and with sparse files
+   ✔  And I backup created block device
+   ✔  And I query recovery points
+   ✔  And I run background ransomware scan for recovery-point
+   ✔  Then I check background iscan ransomware report for not infected entities
+   ✔  And I run background malware scan for recovery-point
+   ✔  Then I check background iscan malware report for not infected entities
+   ✔  And I run background full scan for recovery-point
+   ✔  Then I check background iscan ransomware report for not infected entities
+   ✔  Then I check background iscan malware report for not infected entities
+]]></system-out>
+    </testcase>
+    <testcase name="Scenario: Background iscan subcommands for recovery point, infected entities: \\?\C:\Users\Administrator\elastio_e2e\elastio\cli\e2e\features\windows\iscan.feature:23:5" time="298.8594814">
+      <system-out><![CDATA[  Scenario: Background iscan subcommands for recovery point, infected entities
+   ✔  Given I create default ntfs filesystem with 1 GIB size
+   ✔  And I download files for infection
+   ✔  And I download ransomware and infect device
+   ✔  And I backup created block device
+   ✔  And I query recovery points
+   ✔  And I run background ransomware scan for recovery-point
+   ✔  Then I check background iscan ransomware report for infected entities
+   ✔  And I run background malware scan for recovery-point
+   ✔  Then I check background iscan malware report for infected entities
+   ✔  And I run background full scan for recovery-point
+   ✔  Then I check background iscan ransomware report for infected entities
+   ✔  Then I check background iscan malware report for infected entities
+]]></system-out>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,2001 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <testsuite id="0" name="Feature: Linux full e2e backup restore feature: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature" package="testsuite/Feature: Linux full e2e backup restore feature: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature" tests="6" errors="0" failures="3" hostname="localhost" timestamp="2022-06-15T10:04:18.952698245Z" time="976.814064808">
+    <testcase name="Scenario: Backup simple file with file backup command: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:27:9" time="171.908316673">
+      <system-out><![CDATA[  Scenario Outline: Backup simple file with file backup command
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file with 10 MIB size and random fill strategy
+   ✔  And I backup created file
+   ✔  And I query recovery points
+   ✔  Then I check progress report for base file back up
+   ✔  When I restore backed up file
+   ✔  Then I compare backed up and restored files
+   ✔  When I update created file with following properties:
+       | update_action | update_length | update_offset |
+       | insert        | 5 MIB         | 3 MIB         |
+   ✔  And I backup created file
+   ✔  And I query recovery points
+   ✔  Then I check progress report for incremental file back up
+   ✔  When I restore backed up file
+   ✔  Then I compare backed up and restored files
+]]></system-out>
+    </testcase>
+    <testcase name="Scenario: Backup filesystem: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:120:9" time="428.093037622">
+      <system-out><![CDATA[  Scenario Outline: Backup filesystem
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 100 MIB between files, default tree depth and without sparse files
+   ✔  When I backup created filesystem
+   ✔  And I query recovery points
+   ✔  Then I check progress report for filesystem back up
+   ✔  When I restore backed up filesystem with no filter
+   ✔  Then I compare backed up and restored filesystem
+   ✔  When I update created file system tree
+   ✔  And I backup created filesystem
+   ✔  And I query recovery points
+   ✔  Then I check progress report for filesystem back up
+   ✔  When I restore backed up filesystem with no filter
+   ✔  Then I compare backed up and restored filesystem
+   ✔  When I create file system tree with splitting 50 MIB between files, default tree depth and without sparse files
+   ✔  And I backup created filesystem
+   ✔  And I query recovery points
+   ✔  Then I check progress report for filesystem back up
+   ✔  When I restore backed up filesystem with no filter
+   ✔  Then I compare backed up and restored filesystem
+]]></system-out>
+    </testcase>
+    <testcase name="Scenario: Backup mounted partition: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:209:9" time="147.169536152">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: &quot;/home/usr01/elastio/target/debug/elastio block restore --rp rp-01g5kdskfp1vwn9hzkf685hymj /dev/loop21p1:/dev/loop22p1 --output-format json&quot;, exit_status: &quot;Exited with status code: 70&quot;, stderr: &quot;{\&quot;timestamp\&quot;:\&quot;2022-06-15T13:16:44.193+03:00\&quot;,\&quot;level\&quot;:\&quot;INFO\&quot;,\&quot;fields\&quot;:{\&quot;message\&quot;:\&quot;Restoring from generic host usr01-HP-ProBook-450-G7\&quot;},\&quot;target\&quot;:\&quot;console\&quot;,\&quot;filename\&quot;:\&quot;cli/elastio-cli/src/block.rs\&quot;,\&quot;line_number\&quot;:591,\&quot;threadId\&quot;:\&quot;ThreadId(8)\&quot;}\n&quot;, stdout: &quot;{\&quot;error\&quot;:[\&quot;stdout is not a virtual TTY\&quot;]}&quot; } }"><![CDATA[  Scenario Outline: Backup mounted partition
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 100 MIB between files, default tree depth and with sparse files
+   ✔  When I backup created block device
+   ✔  And I query recovery points
+   ✔  Then I check progress report for block back up
+   ✔  When I create default block device for restore with 1 GIB size
+   ✘  And I restore backed up block device
+      Step failed: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:180:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: "/home/usr01/elastio/target/debug/elastio block restore --rp rp-01g5kdskfp1vwn9hzkf685hymj /dev/loop21p1:/dev/loop22p1 --output-format json", exit_status: "Exited with status code: 70", stderr: "{\"timestamp\":\"2022-06-15T13:16:44.193+03:00\",\"level\":\"INFO\",\"fields\":{\"message\":\"Restoring from generic host usr01-HP-ProBook-450-G7\"},\"target\":\"console\",\"filename\":\"cli/elastio-cli/src/block.rs\",\"line_number\":591,\"threadId\":\"ThreadId(8)\"}\n", stdout: "{\"error\":[\"stdout is not a virtual TTY\"]}" } }
+      E2EWorld {
+          work_dir: "/tmp/.tmp0pB6Ju",
+          restore_dir: "/tmp/.tmpZJm1Iw",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          stop_driver_tracking_changes_mounts: [
+              "/dev/loop21p1",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      245628928,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      90497285,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      125435904,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      120193024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      827064320,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:15:55.638Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:15:55.638Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdskfp1vwn9hzkf685hymj",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdq2v547fjtqavsmrbwey1",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop4p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      194379776,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      46543016,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      124911616,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      69468160,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      878313472,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-10T08:38:14.795Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-10T08:38:14.795Z",
+                      ),
+                      "id": String(
+                          "rp-01g56c750bykdq3yqrpmpwr67s",
+                      ),
+                      "job_id": String(
+                          "j-01g56c4s0cek1z5mv1tt228qfw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              176748735,
+                          ),
+                          "secs": Number(
+                              20,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          125435904,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "/dev/loop21p1",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g5kdshq8kzp9g69g4cf8x87w:1",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          120193024,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5kdskfp1vwn9hzkf685hymj",
+                      ),
+                      "skipped_bytes": Number(
+                          827064320,
+                      ),
+                      "total_bytes": Number(
+                          1072693248,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: None,
+          elastio_cli: "/home/usr01/elastio/target/debug/elastio",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: None,
+      }
+]]></failure>
+    </testcase>
+    <testcase name="Scenario: Backup unmounted partition: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:261:9" time="86.103532279">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: &quot;/home/usr01/elastio/target/debug/elastio block restore --rp rp-01g5kdw3wavct473gnb3d31d5z /dev/loop21p1:/dev/loop22p1 --output-format json&quot;, exit_status: &quot;Exited with status code: 70&quot;, stderr: &quot;{\&quot;timestamp\&quot;:\&quot;2022-06-15T13:18:10.302+03:00\&quot;,\&quot;level\&quot;:\&quot;INFO\&quot;,\&quot;fields\&quot;:{\&quot;message\&quot;:\&quot;Restoring from generic host usr01-HP-ProBook-450-G7\&quot;},\&quot;target\&quot;:\&quot;console\&quot;,\&quot;filename\&quot;:\&quot;cli/elastio-cli/src/block.rs\&quot;,\&quot;line_number\&quot;:591,\&quot;threadId\&quot;:\&quot;ThreadId(4)\&quot;}\n&quot;, stdout: &quot;{\&quot;error\&quot;:[\&quot;stdout is not a virtual TTY\&quot;]}&quot; } }"><![CDATA[  Scenario Outline: Backup unmounted partition
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 100 MIB between files, default tree depth and with sparse files
+   ✔  And I unmount created block device
+   ✔  When I backup created block device
+   ✔  And I mount created block device
+   ✔  And I query recovery points
+   ✔  Then I check progress report for block back up
+   ✔  When I create default block device for restore with 1 GIB size
+   ✘  And I restore backed up block device
+      Step failed: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:228:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: "/home/usr01/elastio/target/debug/elastio block restore --rp rp-01g5kdw3wavct473gnb3d31d5z /dev/loop21p1:/dev/loop22p1 --output-format json", exit_status: "Exited with status code: 70", stderr: "{\"timestamp\":\"2022-06-15T13:18:10.302+03:00\",\"level\":\"INFO\",\"fields\":{\"message\":\"Restoring from generic host usr01-HP-ProBook-450-G7\"},\"target\":\"console\",\"filename\":\"cli/elastio-cli/src/block.rs\",\"line_number\":591,\"threadId\":\"ThreadId(4)\"}\n", stdout: "{\"error\":[\"stdout is not a virtual TTY\"]}" } }
+      E2EWorld {
+          work_dir: "/tmp/.tmpZzSW6a",
+          restore_dir: "/tmp/.tmpKegRIR",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          stop_driver_tracking_changes_mounts: [
+              "/dev/loop21p1",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      184614912,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      106531379,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      16515072,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      168099840,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      888078336,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:17:17.962Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:17:17.962Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdw3wavct473gnb3d31d5z",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdvv0a2eptck0ykcrq628v",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      245628928,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      90497285,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      125435904,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      120193024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      827064320,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:15:55.638Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:15:55.638Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdskfp1vwn9hzkf685hymj",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdq2v547fjtqavsmrbwey1",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop4p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      194379776,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      46543016,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      124911616,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      69468160,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      878313472,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-10T08:38:14.795Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-10T08:38:14.795Z",
+                      ),
+                      "id": String(
+                          "rp-01g56c750bykdq3yqrpmpwr67s",
+                      ),
+                      "job_id": String(
+                          "j-01g56c4s0cek1z5mv1tt228qfw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              351372942,
+                          ),
+                          "secs": Number(
+                              19,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          16515072,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "/dev/loop21p1",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g5kdshq8kzp9g69g4cf8x87w:2",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          168099840,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5kdw3wavct473gnb3d31d5z",
+                      ),
+                      "skipped_bytes": Number(
+                          888078336,
+                      ),
+                      "total_bytes": Number(
+                          1072693248,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: None,
+          elastio_cli: "/home/usr01/elastio/target/debug/elastio",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: None,
+      }
+]]></failure>
+    </testcase>
+    <testcase name="Scenario: Mount backed up block device: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:302:9" time="46.547431703">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: &quot;/home/usr01/elastio/target/debug/elastio mount rp --rp rp-01g5kdya6xs1f6v9nmvqpt1btp /dev/loop21p1:/tmp/.tmpmQUdnw --output-format json&quot;, exit_status: &quot;Exited with status code: 70&quot;, stderr: &quot;&quot;, stdout: &quot;{\&quot;error\&quot;:[\&quot;\&quot;]}&quot; } }"><![CDATA[  Scenario Outline: Mount backed up block device
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 50 MIB between files, 2 tree depth and with sparse files
+   ✔  When I backup created block device
+   ✔  And I query recovery points
+   ✘  And I mount backed up block device
+      Step failed: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:295:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: "/home/usr01/elastio/target/debug/elastio mount rp --rp rp-01g5kdya6xs1f6v9nmvqpt1btp /dev/loop21p1:/tmp/.tmpmQUdnw --output-format json", exit_status: "Exited with status code: 70", stderr: "", stdout: "{\"error\":[\"\"]}" } }
+      E2EWorld {
+          work_dir: "/tmp/.tmpPaNJM6",
+          restore_dir: "/tmp/.tmpmQUdnw",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          stop_driver_tracking_changes_mounts: [
+              "/dev/loop21p1",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      196280320,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52476265,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      141885440,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54394880,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      876412928,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:18:29.981Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:18:29.981Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdya6xs1f6v9nmvqpt1btp",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdy1crj5m7zp36kjy26a2r",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      184614912,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      106531379,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      16515072,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      168099840,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      888078336,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:17:17.962Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:17:17.962Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdw3wavct473gnb3d31d5z",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdvv0a2eptck0ykcrq628v",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      245628928,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      90497285,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      125435904,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      120193024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      827064320,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:15:55.638Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:15:55.638Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdskfp1vwn9hzkf685hymj",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdq2v547fjtqavsmrbwey1",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop4p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      194379776,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      46543016,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      124911616,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      69468160,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      878313472,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-10T08:38:14.795Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-10T08:38:14.795Z",
+                      ),
+                      "id": String(
+                          "rp-01g56c750bykdq3yqrpmpwr67s",
+                      ),
+                      "job_id": String(
+                          "j-01g56c4s0cek1z5mv1tt228qfw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              132844956,
+                          ),
+                          "secs": Number(
+                              14,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          141885440,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "/dev/loop21p1",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g5kdshq8kzp9g69g4cf8x87w:3",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          54394880,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5kdya6xs1f6v9nmvqpt1btp",
+                      ),
+                      "skipped_bytes": Number(
+                          876412928,
+                      ),
+                      "total_bytes": Number(
+                          1072693248,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: None,
+          elastio_cli: "/home/usr01/elastio/target/debug/elastio",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: None,
+      }
+]]></failure>
+    </testcase>
+    <testcase name="Scenario: Backup simple file with stream backup command: /home/usr01/elastio/cli/e2e/features/linux/backup-restore.feature:340:9" time="96.992210379">
+      <system-out><![CDATA[  Scenario Outline: Backup simple file with stream backup command
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file with 10 MIB size and random fill strategy
+   ✔  And I backup created file with stream backup command
+   ✔  And I query recovery points
+   ✔  Then I check progress report for base file back up with stream subcommmand
+   ✔  When I restore backed up file with stream restore command
+   ✔  Then I compare backed up and restored files
+   ✔  When I update created file with following properties:
+       | update_action | update_length | update_offset |
+       | insert        | 5 MIB         | 3 MIB         |
+   ✔  And I backup created file with stream backup command
+   ✔  And I query recovery points
+   ✔  Then I check progress report for incremental file back up with stream subcommmand
+   ✔  When I restore backed up file with stream restore command
+   ✔  Then I compare backed up and restored files
+]]></system-out>
+    </testcase>
+  </testsuite>
+  <testsuite id="1" name="Feature: Linux full e2e iscan feature: /home/usr01/elastio/cli/e2e/features/linux/iscan.feature" package="testsuite/Feature: Linux full e2e iscan feature: /home/usr01/elastio/cli/e2e/features/linux/iscan.feature" tests="2" errors="0" failures="2" hostname="localhost" timestamp="2022-06-15T10:20:35.781666309Z" time="188.869027699">
+    <testcase name="Scenario: Foreground iscan full subcommand for not infected entities: /home/usr01/elastio/cli/e2e/features/linux/iscan.feature:48:5" time="112.709842347">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: &quot;/home/usr01/elastio/target/debug/elastio iscan --rp rp-01g5ke4hc6qw6t7hw2sn49t2pv full --output-format json&quot;, exit_status: &quot;Exited with status code: 70&quot;, stderr: &quot;&quot;, stdout: &quot;{\&quot;error\&quot;:[\&quot;\&quot;]}&quot; } }"><![CDATA[  Scenario: Foreground iscan full subcommand for not infected entities
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 50 MIB between files, 1 tree depth and with sparse files
+   ✔  And I run foreground full scan for local path
+   ✔  Then I check foreground iscan ransomware report for not infected entities
+   ✔  Then I check foreground iscan malware report for not infected entities
+   ✔  And I backup created block device
+   ✔  And I query recovery points
+   ✘  And I run foreground full scan for recovery-point
+      Step failed: /home/usr01/elastio/cli/e2e/features/linux/iscan.feature:56:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: "/home/usr01/elastio/target/debug/elastio iscan --rp rp-01g5ke4hc6qw6t7hw2sn49t2pv full --output-format json", exit_status: "Exited with status code: 70", stderr: "", stdout: "{\"error\":[\"\"]}" } }
+      E2EWorld {
+          work_dir: "/tmp/.tmpzhFcxB",
+          restore_dir: "/tmp/.tmprPPjMb",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          stop_driver_tracking_changes_mounts: [
+              "/dev/loop21p1",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      195690496,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52455510,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      142147584,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      53542912,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      877002752,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:21:53.926Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:21:53.926Z",
+                      ),
+                      "id": String(
+                          "rp-01g5ke4hc6qw6t7hw2sn49t2pv",
+                      ),
+                      "job_id": String(
+                          "j-01g5ke48qf43nx2n85t7eh2hjs",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      196280320,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52476265,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      141885440,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54394880,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      876412928,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:18:29.981Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:18:29.981Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdya6xs1f6v9nmvqpt1btp",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdy1crj5m7zp36kjy26a2r",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      184614912,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      106531379,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      16515072,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      168099840,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      888078336,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:17:17.962Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:17:17.962Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdw3wavct473gnb3d31d5z",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdvv0a2eptck0ykcrq628v",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      245628928,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      90497285,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      125435904,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      120193024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      827064320,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:15:55.638Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:15:55.638Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdskfp1vwn9hzkf685hymj",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdq2v547fjtqavsmrbwey1",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop4p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      194379776,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      46543016,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      124911616,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      69468160,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      878313472,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-10T08:38:14.795Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-10T08:38:14.795Z",
+                      ),
+                      "id": String(
+                          "rp-01g56c750bykdq3yqrpmpwr67s",
+                      ),
+                      "job_id": String(
+                          "j-01g56c4s0cek1z5mv1tt228qfw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              626788324,
+                          ),
+                          "secs": Number(
+                              13,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          142147584,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "/dev/loop21p1",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g5kdshq8kzp9g69g4cf8x87w:4",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          53542912,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5ke4hc6qw6t7hw2sn49t2pv",
+                      ),
+                      "skipped_bytes": Number(
+                          877002752,
+                      ),
+                      "total_bytes": Number(
+                          1072693248,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: None,
+          elastio_cli: "/home/usr01/elastio/target/debug/elastio",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: Some(
+              [
+                  "/tmp/iscan--tmp-.tmpzhFcxB-mount_loop-13290261316213141685-2022-06-15T10:21:34Z-rans.ndjson",
+                  "/tmp/iscan--tmp-.tmpzhFcxB-mount_loop-13290261316213141685-2022-06-15T10:21:34Z-mal.ndjson",
+              ],
+          ),
+      }
+]]></failure>
+    </testcase>
+    <testcase name="Scenario: Foreground iscan malware subcommand for infected entities: /home/usr01/elastio/cli/e2e/features/linux/iscan.feature:75:9" time="76.159185352">
+      <failure type="Step Panicked" message="Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: &quot;/home/usr01/elastio/target/debug/elastio iscan --rp rp-01g5ke6wfesge30a234nqs2nyj malware --output-format json&quot;, exit_status: &quot;Exited with status code: 70&quot;, stderr: &quot;&quot;, stdout: &quot;{\&quot;error\&quot;:[\&quot;\&quot;]}&quot; } }"><![CDATA[  Scenario Outline: Foreground iscan malware subcommand for infected entities
+   ✔  Given I create default ext4 filesystem with 1 GIB size
+   ✔  And I create file system tree with splitting 50 MIB between files, 1 tree depth and with sparse files
+   ✔  And I download malware sample
+   ✔  And I run foreground malware scan for local path
+   ✔  Then I check foreground iscan malware report for infected entities
+   ✔  And I backup created block device
+   ✔  And I query recovery points
+   ✘  And I run foreground malware scan for recovery-point
+      Step failed: /home/usr01/elastio/cli/e2e/features/linux/iscan.feature:69:9
+      Captured output: 
+      Step panicked. Captured output: called `Result::unwrap()` on an `Err` value: ElastioCliCommandError { source: CmdCommandFailed { command: "/home/usr01/elastio/target/debug/elastio iscan --rp rp-01g5ke6wfesge30a234nqs2nyj malware --output-format json", exit_status: "Exited with status code: 70", stderr: "", stdout: "{\"error\":[\"\"]}" } }
+      E2EWorld {
+          work_dir: "/tmp/.tmptRs1Yp",
+          restore_dir: "/tmp/.tmpn5SEul",
+          filesystem: None,
+          restore_block_device: None,
+          files_to_backup: None,
+          files_update_properties: None,
+          file_paths_to_restore: None,
+          stop_driver_tracking_changes_mounts: [
+              "/dev/loop21p1",
+          ],
+          recovery_points: Some(
+              [
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      196083712,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52589540,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      142147584,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      53936128,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      876609536,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:23:10.830Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:23:10.830Z",
+                      ),
+                      "id": String(
+                          "rp-01g5ke6wfesge30a234nqs2nyj",
+                      ),
+                      "job_id": String(
+                          "j-01g5ke6kzygqrj48v6k89e2c6c",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      195690496,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52455510,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      142147584,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      53542912,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      877002752,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:21:53.926Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:21:53.926Z",
+                      ),
+                      "id": String(
+                          "rp-01g5ke4hc6qw6t7hw2sn49t2pv",
+                      ),
+                      "job_id": String(
+                          "j-01g5ke48qf43nx2n85t7eh2hjs",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      196280320,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      52476265,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      141885440,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      54394880,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      876412928,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:18:29.981Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:18:29.981Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdya6xs1f6v9nmvqpt1btp",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdy1crj5m7zp36kjy26a2r",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      184614912,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      106531379,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      16515072,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      168099840,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      888078336,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:17:17.962Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:17:17.962Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdw3wavct473gnb3d31d5z",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdvv0a2eptck0ykcrq628v",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop21p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      245628928,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      90497285,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      125435904,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      120193024,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      827064320,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-15T10:15:55.638Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-15T10:15:55.638Z",
+                      ),
+                      "id": String(
+                          "rp-01g5kdskfp1vwn9hzkf685hymj",
+                      ),
+                      "job_id": String(
+                          "j-01g5kdq2v547fjtqavsmrbwey1",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+                  Object({
+                      "asset_snaps": Array([
+                          Object({
+                              "asset_id": String(
+                                  "elastio:asset:local-volume:s:generic-host:s:usr01-HP-ProBook-450-G7:/dev/loop4p1",
+                              ),
+                              "backup_method": String(
+                                  "local-volume:scalez:fixed",
+                              ),
+                              "backup_stats": Object({
+                                  "bytes_included": Number(
+                                      194379776,
+                                  ),
+                                  "bytes_uploaded": Number(
+                                      46543016,
+                                  ),
+                                  "existing_bytes_ingested": Number(
+                                      124911616,
+                                  ),
+                                  "new_bytes_ingested": Number(
+                                      69468160,
+                                  ),
+                                  "skipped_bytes": Number(
+                                      878313472,
+                                  ),
+                                  "total_bytes_ingested": Number(
+                                      1072693248,
+                                  ),
+                              }),
+                              "updated_at": String(
+                                  "2022-06-10T08:38:14.795Z",
+                              ),
+                          }),
+                      ]),
+                      "created_at": String(
+                          "2022-06-10T08:38:14.795Z",
+                      ),
+                      "id": String(
+                          "rp-01g56c750bykdq3yqrpmpwr67s",
+                      ),
+                      "job_id": String(
+                          "j-01g56c4s0cek1z5mv1tt228qfw",
+                      ),
+                      "kind": String(
+                          "LocalVolume",
+                      ),
+                      "meta": Object({
+                          "kind": String(
+                              "GenericHost",
+                          ),
+                          "val": Object({
+                              "cpu_cores": Number(
+                                  8,
+                              ),
+                              "hostname": String(
+                                  "usr01-HP-ProBook-450-G7",
+                              ),
+                              "os": Object({
+                                  "kind": String(
+                                      "Ubuntu",
+                                  ),
+                              }),
+                          }),
+                      }),
+                      "post_backup_check_result": Null,
+                      "source": String(
+                          "elastio:asset:generic-host:s:usr01-HP-ProBook-450-G7",
+                      ),
+                      "tags": Object({}),
+                      "vault": String(
+                          "test-vault",
+                      ),
+                  }),
+              ],
+          ),
+          json_report: Some(
+              Object({
+                  "data": Object({
+                      "duration": Object({
+                          "nanos": Number(
+                              4608194,
+                          ),
+                          "secs": Number(
+                              13,
+                          ),
+                      }),
+                      "existing_bytes": Number(
+                          142147584,
+                      ),
+                      "items": Array([
+                          Object({
+                              "description": String(
+                                  "/dev/loop21p1",
+                              ),
+                              "status": Object({
+                                  "data": String(
+                                      "b-01g5kdshq8kzp9g69g4cf8x87w:5",
+                                  ),
+                                  "type": String(
+                                      "Succeeded",
+                                  ),
+                              }),
+                          }),
+                      ]),
+                      "new_bytes": Number(
+                          53936128,
+                      ),
+                      "rp_id": String(
+                          "rp-01g5ke6wfesge30a234nqs2nyj",
+                      ),
+                      "skipped_bytes": Number(
+                          876609536,
+                      ),
+                      "total_bytes": Number(
+                          1072693248,
+                      ),
+                      "total_items": Number(
+                          1,
+                      ),
+                  }),
+                  "status": String(
+                      "Succeeded",
+                  ),
+              }),
+          ),
+          filter_file_name: None,
+          filesystem_restore_filter: No,
+          asset_type: Some(
+              "block",
+          ),
+          do_umount_all: false,
+          is_root_fs_backup: false,
+          malware_sample_name: Some(
+              "7c66833a89ee096263533a2ff07c251054b9f7a3341f41bbd6b7f098857b6a7a",
+          ),
+          elastio_cli: "/home/usr01/elastio/target/debug/elastio",
+          background_succeeded_scans_attachments: [],
+          restored_stream: None,
+          iscan_report_locations: Some(
+              [
+                  "/tmp/iscan--tmp-.tmptRs1Yp-mount_loop-17949604154548832178-2022-06-15T10:22:53Z-mal.ndjson",
+              ],
+          ),
+      }
+]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
